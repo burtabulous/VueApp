@@ -8,7 +8,50 @@
     <p>Use this area to provide additional information.</p>*@
 
 <div id="app">
- <product></product>
+    <div class="product">
+
+        <div class="product-image">
+            <img height="250" width="250" v-bind:src="image" />
+        </div>
+
+        <div class="prodcut-info">
+            <h1>{{title}}</h1>
+
+            <p v-if="inStock">In Stock</p>
+            <p v-else-if="selectedVariant.variantQuantity <= 10 && inStock">Almost sold out</p>
+            <p v-bind:class="{outOfStock: !inStock}" v-else>Out of Stock</p>
+
+            <h3 v-show="onSale">On Sale!</h3>
+
+            <ul>
+                <li v-for="detail in details">{{detail}}</li>
+            </ul>
+
+            <div v-for="(variant, index) in variants" v-bind:data-detail-id="variant.variantId"
+                 :key="variant.variantId"
+                 class="color-box"
+                 v-bind:style="{backgroundColor: variant.variantColor}"
+                 v-on:mouseover="updateProduct(index)">
+            </div>
+
+            <h2>Sizes</h2>
+            <ul>
+                <li v-for="size in sizes">{{size}}</li>
+            </ul>
+
+            <button v-on:click="addToCart" v-bind:disabled="!inStock" v-bind:class="{disabledButton: !inStock}" class="btn btn-success">Add to Cart</button>
+            <button v-on:click="removeFromCart" v-show="cart > 0" class="btn btn-danger">Remove from Cart</button>
+
+            <div class="cart">
+                <p>Cart({{cart}})</p>
+
+            </div>
+
+
+        </div>
+        <a v-bind:href="link">Google Image Link</a>
+
+    </div>
 </div>
 
 
