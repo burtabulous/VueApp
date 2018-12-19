@@ -8,7 +8,13 @@
     <p>Use this area to provide additional information.</p>*@
 
 <div id="app">
- <product></product>
+    <div class="cart">
+        <p>Cart({{cart}})</p>
+
+    </div>
+
+    <product :premium="premium" v-on:add-to-cart="updateCart"></product>
+
 </div>
 
 
